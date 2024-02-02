@@ -3,8 +3,10 @@ package com.sparta.schedule.service;
 import com.sparta.schedule.dto.ScheduleRequestDto;
 import com.sparta.schedule.dto.ScheduleResponseDto;
 import com.sparta.schedule.entity.Schedule;
+import com.sparta.schedule.jwt.UserDetailsImpl;
 import com.sparta.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,9 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         // RequestDto -> Entity
-        Schedule schedule = new Schedule(requestDto);
+        Schedule schedule = new Schedule(requestDto, userDetails);
 
         // DB 저장
         Schedule saveSchedule = scheduleRepository.save(schedule);
@@ -40,12 +42,17 @@ public class ScheduleService {
     }
 
     @Transactional
-    public Long updateSchedule(Long id, ScheduleRequestDto requestDto) {
+    public Long updateSchedule(Long id, ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         // 해당 일정이 DB에 존재하는지 확인
         Schedule schedule = findSchedule(id);
 
-        // schedule 내용 수정
-        schedule.update(requestDto);
+        if(schedule.getUsername().equals(userDetails.getUsername())) {
+            // schedule 내용 수정
+            schedule.update(requestDto);
+        }
+        else {
+            throw new IllegalArgumentException("수정할 수 없습니다");
+        }
 
         return id;
     }

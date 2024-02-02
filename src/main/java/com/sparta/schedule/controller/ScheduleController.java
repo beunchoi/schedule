@@ -2,7 +2,9 @@ package com.sparta.schedule.controller;
 
 import com.sparta.schedule.dto.ScheduleRequestDto;
 import com.sparta.schedule.dto.ScheduleResponseDto;
+import com.sparta.schedule.jwt.UserDetailsImpl;
 import com.sparta.schedule.service.ScheduleService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedules")
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-        return scheduleService.createSchedule(requestDto);
+    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return scheduleService.createSchedule(requestDto, userDetails);
     }
 
     @GetMapping("/schedules")
@@ -33,8 +35,8 @@ public class ScheduleController {
     }
 
     @PutMapping("/schedules/{id}")
-    public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
-        return scheduleService.updateSchedule(id, requestDto);
+    public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return scheduleService.updateSchedule(id, requestDto, userDetails);
     }
 
     @DeleteMapping("/schedules/{id}")

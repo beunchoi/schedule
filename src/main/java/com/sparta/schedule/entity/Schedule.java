@@ -1,10 +1,12 @@
 package com.sparta.schedule.entity;
 
 import com.sparta.schedule.dto.ScheduleRequestDto;
+import com.sparta.schedule.jwt.UserDetailsImpl;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
@@ -22,14 +24,13 @@ public class Schedule extends Timestamped {
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-    public Schedule(ScheduleRequestDto requestDto) {
-        this.username = requestDto.getUsername();
+    public Schedule(ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        this.username = userDetails.getUsername();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
 
     public void update(ScheduleRequestDto requestDto) {
-        this.username = requestDto.getUsername();
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
