@@ -21,10 +21,15 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = passwordEncoder.encode(requestDto.getPassword());
 
-        // 회원 중복 확인
+        // 회원 중복 확인, 유저 이름 조건
         Optional<User> checkUsername = userRepository.findByUsername(username);
-        if (checkUsername.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+        if (checkUsername.isPresent() || !username.matches("^[a-z0-9]{4,10}$")) {
+            throw new IllegalArgumentException("사용할 수 없는 유저 이름입니다");
+        }
+
+        //패스워드 조건
+        if (!requestDto.getPassword().matches("^[a-zA-Z0-9]{8,15}$")) {
+            throw new IllegalArgumentException("사용할 수 없는 패스워드입니다");
         }
 
         // email 중복확인
