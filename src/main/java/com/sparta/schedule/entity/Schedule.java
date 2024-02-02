@@ -17,24 +17,20 @@ public class Schedule extends Timestamped {
     private Long id;
     @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "contents", nullable = false, length = 500)
-    private String contents;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "contents", nullable = false, length = 500)
+    private String contents;
 
     public Schedule(ScheduleRequestDto requestDto) {
         this.username = requestDto.getUsername();
-        this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
-        this.password = requestDto.getPassword();
+        this.contents = requestDto.getContents();
     }
 
     public void update(ScheduleRequestDto requestDto) {
         this.username = requestDto.getUsername();
-        this.contents = requestDto.getContents();
         this.title = requestDto.getTitle();
-        this.password = requestDto.getPassword();
+        this.contents = requestDto.getContents();
     }
 }

@@ -103,7 +103,31 @@
             resize: none;
         }
 
+        textarea.field2 {
+            width: 502px !important;
+            height: 25px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: none;
+            padding: 18px;
+            resize: none;
+        }
+
         textarea.field::placeholder {
+            width: 216px;
+            height: 16px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1;
+            letter-spacing: -0.96px;
+            text-align: left;
+            color: #868e96;
+        }
+
+        textarea.field2::placeholder {
             width: 216px;
             height: 16px;
             font-family: 'Noto Sans KR', sans-serif;
@@ -236,7 +260,9 @@
         // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
         function editPost(id) {
             showEdits(id);
+            let title = $(`#${id}-title`).text().trim();
             let contents = $(`#${id}-contents`).text().trim();
+            $(`#${id}-textarea`).val(title);
             $(`#${id}-textarea`).val(contents);
         }
 
@@ -245,6 +271,7 @@
             $(`#${id}-submit`).show();
             $(`#${id}-delete`).show();
 
+            $(`#${id}-title`).hide();
             $(`#${id}-contents`).hide();
             $(`#${id}-edit`).hide();
         }
@@ -267,16 +294,17 @@
                         let message = response[i];
                         let id = message['id'];
                         let username = message['username'];
+                        let title = message['title'];
                         let contents = message['contents'];
                         let modifiedAt = message['modifiedAt'];
-                        addHTML(id, username, contents, modifiedAt);
+                        addHTML(id, username, title, contents, modifiedAt);
                     }
                 }
             })
         }
 
         // 일정 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
-        function addHTML(id, username, contents, modifiedAt) {
+        function addHTML(id, username, title, contents, modifiedAt) {
             // 1. HTML 태그를 만듭니다.
             let tempHtml = `<div class="card">
                 <!-- date/username 영역 -->
@@ -290,6 +318,9 @@
                 </div>
                 <!-- contents 조회/수정 영역-->
                 <div class="contents">
+                    <div id="${id}-title" class="text">
+                        ${title}
+                    </div>
                     <div id="${id}-contents" class="text">
                         ${contents}
                     </div>
@@ -311,6 +342,7 @@
         // 일정을 생성합니다.
         function writePost() {
             // 1. 작성한 일정을 불러옵니다.
+            let title = $('#title').val();
             let contents = $('#contents').val();
 
             // 2. 작성한 일정이 올바른지 isValidContents 함수를 통해 확인합니다.
@@ -321,7 +353,7 @@
             let username = genRandomName(10);
 
             // 4. 전달할 data JSON으로 만듭니다.
-            let data = {'username': username, 'contents': contents};
+            let data = {'username': username, 'title': title, 'contents': contents};
 
             // 5. POST /api/schedules 에 data를 전달합니다.
             $.ajax({
@@ -340,6 +372,7 @@
         function submitEdit(id) {
             // 1. 작성 대상 일정의 username과 contents 를 확인합니다.
             let username = $(`#${id}-username`).text().trim();
+            let title = $(`#${id}-textarea`).val().trim();
             let contents = $(`#${id}-textarea`).val().trim();
 
             // 2. 작성한 일정이 올바른지 isValidContents 함수를 통해 확인합니다.
@@ -348,7 +381,7 @@
             }
 
             // 3. 전달할 data JSON으로 만듭니다.
-            let data = {'username': username, 'contents': contents};
+            let data = {'username': username, 'title': title, 'contents': contents};
 
             // 4. PUT /api/schedules/{id} 에 data를 전달합니다.
             $.ajax({
@@ -393,6 +426,8 @@
         </p>
     </div>
     <div class="area-write">
+        <textarea class="field2" placeholder="제목을 입력해주세요" name="title" id="title" cols="30"
+                  rows="10"></textarea>
         <textarea class="field" placeholder="일정을 입력해주세요" name="contents" id="contents" cols="30"
                   rows="10"></textarea>
         <!--            <button class="btn btn-danger" onclick="writePost()">작성하기</button>-->
