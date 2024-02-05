@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -37,8 +39,8 @@ public class ScheduleService {
         return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
     }
 
-    public List<ScheduleResponseDto> getSchedulesByKeyword(String keyword) {
-        return scheduleRepository.findAllByContentsContainsOrderByModifiedAtDesc(keyword).stream().map(ScheduleResponseDto::new).toList();
+    public List<ScheduleResponseDto> getSchedulesById(Long id) {
+        return scheduleRepository.findSchedulesById(id).stream().map(ScheduleResponseDto::new).toList();
     }
 
     @Transactional

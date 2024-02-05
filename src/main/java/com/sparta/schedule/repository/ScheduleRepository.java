@@ -11,4 +11,5 @@ import java.util.List;
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAllByOrderByModifiedAtDesc();
     List<Schedule> findAllByContentsContainsOrderByModifiedAtDesc(String keyword);
+    List<Schedule> findSchedulesById(Long id);
 }

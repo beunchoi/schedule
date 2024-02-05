@@ -29,9 +29,9 @@ public class ScheduleController {
         return scheduleService.getSchedules();
     }
 
-    @GetMapping("/schedules/contents")
-    public List<ScheduleResponseDto> getSchedulesByKeyword(String keyword) {
-        return scheduleService.getSchedulesByKeyword(keyword);
+    @GetMapping("/schedules/{id}")
+    public List<ScheduleResponseDto> getSchedulesById(@PathVariable Long id) {
+        return scheduleService.getSchedulesById(id);
     }
 
     @PutMapping("/schedules/{id}")
