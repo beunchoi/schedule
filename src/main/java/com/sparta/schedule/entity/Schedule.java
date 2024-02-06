@@ -23,6 +23,8 @@ public class Schedule extends Timestamped {
     private String title;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
+    @Column(name = "complete", nullable = false)
+    private boolean complete = false;
 
     public Schedule(ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.username = userDetails.getUsername();

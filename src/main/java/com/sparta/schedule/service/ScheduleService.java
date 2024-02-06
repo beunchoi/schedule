@@ -59,12 +59,13 @@ public class ScheduleService {
         return id;
     }
 
-    public Long deleteSchedule(Long id) {
+    @Transactional
+    public Long completeSchedule(Long id) {
         // 해당 일정이 DB에 존재하는지 확인
         Schedule schedule = findSchedule(id);
 
-        // schedule 삭제
-        scheduleRepository.delete(schedule);
+        // schedule 완료
+        schedule.setComplete(true);
 
         return id;
     }

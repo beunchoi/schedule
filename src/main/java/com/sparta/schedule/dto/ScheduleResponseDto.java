@@ -11,14 +11,17 @@ public class ScheduleResponseDto {
     private String username;
     private String title;
     private String contents;
+    private boolean complete;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
 
     public ScheduleResponseDto(Schedule saveSchedule) {
         this.id = saveSchedule.getId();
         this.username = saveSchedule.getUsername();
         this.title = saveSchedule.getTitle();
         this.contents = saveSchedule.getContents();
+        this.complete = saveSchedule.isComplete();
         this.createdAt = saveSchedule.getCreatedAt();
         this.modifiedAt = saveSchedule.getModifiedAt();
     }
