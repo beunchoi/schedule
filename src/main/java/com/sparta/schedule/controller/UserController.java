@@ -1,5 +1,7 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.controller;
 
+import com.sparta.schedule.dto.SignupRequestDto;
+import com.sparta.schedule.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

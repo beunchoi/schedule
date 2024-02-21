@@ -1,4 +1,4 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.dto;
 
 import lombok.Getter;
 import lombok.Setter;

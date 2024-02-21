@@ -1,5 +1,9 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.config;
 
+import com.sparta.schedule.security.JwtAuthenticationFilter;
+import com.sparta.schedule.security.JwtAuthorizationFilter;
+import com.sparta.schedule.jwt.JwtUtil;
+import com.sparta.schedule.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

@@ -1,5 +1,8 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.security;
 
+import com.sparta.schedule.entity.User;
+import com.sparta.schedule.repository.UserRepository;
+import com.sparta.schedule.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
