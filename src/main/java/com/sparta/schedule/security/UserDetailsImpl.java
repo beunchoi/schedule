@@ -1,5 +1,7 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.security;
 
+import com.sparta.schedule.entity.User;
+import com.sparta.schedule.entity.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

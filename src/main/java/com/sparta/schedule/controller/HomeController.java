@@ -1,4 +1,4 @@
-package com.sparta.schedule.jwt;
+package com.sparta.schedule.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

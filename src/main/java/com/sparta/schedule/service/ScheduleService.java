@@ -3,24 +3,21 @@ package com.sparta.schedule.service;
 import com.sparta.schedule.dto.ScheduleRequestDto;
 import com.sparta.schedule.dto.ScheduleResponseDto;
 import com.sparta.schedule.entity.Schedule;
-import com.sparta.schedule.jwt.UserDetailsImpl;
+import com.sparta.schedule.security.UserDetailsImpl;
 import com.sparta.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-
+    @Transactional
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         // RequestDto -> Entity
         Schedule schedule = new Schedule(requestDto, userDetails);
@@ -76,3 +73,4 @@ public class ScheduleService {
         );
     }
 }
+
